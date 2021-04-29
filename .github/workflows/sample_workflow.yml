@@ -1,0 +1,31 @@
+name: Code junction build
+on: 
+  push:
+    branches: 
+      - Build_trial
+  pull_request:
+    branches: 
+      - Build_trial
+jobs:
+  ubuntu-build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - name: GitHub Checkout
+      uses: actions/checkout@v2
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+        
+    - run: npm install
+    - run: npm fund
+    - run: npm audit fix
+    - run: npm run build --if-present
+    - run: npm test --if-present
