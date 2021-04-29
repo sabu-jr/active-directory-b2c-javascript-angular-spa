@@ -1,0 +1,27 @@
+name: Code_Build
+on: 
+  push:
+    branches: 
+      - Build_trial
+  pull_request:
+    branches: 
+      - Build_trial
+jobs:
+  ubuntu-build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: GitHub Checkout
+      uses: actions/checkout@v2
+    
+    - name: Use Node.js 
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+        
+    - run: npm install
+    - run: npm fund
+    - run: npm audit fix
+    - run: npm run build --if-present
+
