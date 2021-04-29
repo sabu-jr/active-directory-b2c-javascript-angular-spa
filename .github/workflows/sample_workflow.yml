@@ -1,4 +1,4 @@
-name: Code junction build
+name: Code_Build
 on: 
   push:
     branches: 
@@ -15,12 +15,13 @@ jobs:
     - name: GitHub Checkout
       uses: actions/checkout@v2
     
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 
       uses: actions/setup-node@v1
       with:
-        node-version: 14.x
+        node-version: 12.x
         
     - run: npm install
     - run: npm fund
     - run: npm audit fix
     - run: npm run build --if-present
+    - run: npm run test --if-present
