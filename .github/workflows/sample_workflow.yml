@@ -24,4 +24,3 @@ jobs:
     - run: npm fund
     - run: npm audit fix
     - run: npm run build --if-present
-    - run: npm test
